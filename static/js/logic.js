@@ -11,19 +11,18 @@ function createFeatures(earthquakeData) {
 // Define a function we want to run once for each feature in the features array
 // Give each feature a popup describing the place and time of the earthquake
 function onEachFeature(feature, layer) {
-  layer.bindPopup("<h3>" + feature.properties.place +
-    "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
+  layer.bindPopup("Place:"+feature.properties.place + "<br> Magnitude: "+feature.properties.mag+"<br> Time: "+new Date(feature.properties.time));
 }
 function getColor(mag){
-if (mag > 2.5)
+if (mag > 5.0)
   return "red";
-else if (mag > 2)
+else if (mag > 4.0)
   return "orange";
-else if (mag > 1.5)
+else if (mag > 3.0)
   return "yellow";
-else if (mag > 1)
+else if (mag > 2.0)
   return "blue";  
-else if (mag > 0.5)
+else if (mag > 1.0)
   return "purple";
 else 
   return "green"   
@@ -31,9 +30,10 @@ else
 function earthquakestyle(feature) {
    return {
      radius: feature.properties.mag*2,
-      opacity: 1,
+     opacity: 1,
      stroke: true,
      fillColor: getColor(feature.properties.mag),
+     color: "black",
      fillOpacity: 1
    }
 
