@@ -34,6 +34,7 @@ function earthquakestyle(feature) {
      stroke: true,
      fillColor: getColor(feature.properties.mag),
      color: "black",
+     weight: 0.6,
      fillOpacity: 1
    }
 
@@ -65,17 +66,17 @@ var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
   accessToken: "pk.eyJ1IjoicGF0ZWxyb21hNTAxIiwiYSI6ImNrZDlwMmhwejA0ejYyd29iYjkzM2g1NmUifQ.ItFKV0V_qlrMeuFAisNtAA"
 });
 
-var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
-  id: "dark-v10",
+var satellite = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+      attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+      maxZoom: 18,
+      id: "mapbox.satellite",
   accessToken: "pk.eyJ1IjoicGF0ZWxyb21hNTAxIiwiYSI6ImNrZDlwMmhwejA0ejYyd29iYjkzM2g1NmUifQ.ItFKV0V_qlrMeuFAisNtAA"
 });
 
 // Define a baseMaps object to hold our base layers
 var baseMaps = {
   "Street Map": streetmap,
-  "Dark Map": darkmap
+  "Satellite Map": satellite
 };
 
 // Create overlay object to hold our overlay layer
@@ -89,7 +90,7 @@ var myMap = L.map("map", {
     37.09, -95.71
   ],
   zoom: 5,
-  layers: [streetmap, earthquakes]
+  layers: [satellite, earthquakes]
 });
 
 // Create a layer control
